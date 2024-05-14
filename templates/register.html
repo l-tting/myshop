@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title%}Dashboard{% endblock%}
+{% block content%}
+<div>
+    <div class="card-body"
+    style="background-color:lightgray; background-image: url(/static/images/log.jpeg); background-repeat: no-repeat; background-size: cover;margin-top: 10%;">
+
+    <p class="card-text" style="font-weight: bolder;">Enter your email and password below: </p>
+    <form action="/register" method="post">
+        <input name="f_name" type="text" placeholder="Enter full name"
+            style="width: 230px; border-radius: 10px;border-color: bisque;" required><br><br>
+        <input name="email" type="text" placeholder="Enter email"
+            style="width: 230px; border-radius: 10px;border-color: bisque;" required><br><br>
+        <input name="pass" type="password" placeholder="Enter password"
+            style="width: 230px; border-radius: 10px;border-color: bisque;" required><br><br>
+
+        <button type="submit"
+            style="background-color: lightblue; border-radius: 7px; width: 115px;">Register</button>
+    </form>
+
+</div>
+<div class="card-footer text-body-secondary" style="background-color: bisque;">
+    Dont have an account? <a href="{{url_for('register')}}">Sign up</a>
+</div>
+</div>
+</div>
+{% endblock%}

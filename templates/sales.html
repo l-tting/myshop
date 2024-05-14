@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title%}Dashboard{% endblock%}
+{% block content%}
+<div class="sale_modal" style="margin-top: 120px;">
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Make Sale
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Make a Sale</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/make_sale" method="post">
+                        <select class="form-select" aria-label="Default select example"
+                            style="width: 50%;margin-left:25%;color: #051922;font-weight: bolder;border-color: #ef8024;" name="select">
+                            <option>Select Product</option>
+                            {% for i in products %}
+                            <option value={{i[0]}}>{{i[1]}}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="number" id="inputPassword6" class="form-control"
+                            aria-describedby="passwordHelpInline" placeholder="Quantity"
+                            style="width: 30%;margin-left: 35%;margin-top: 3%;border-color:#ef8024 ;" name="quantity">
+
+                        <button type="submit" class="btn btn-primary"
+                            style="margin-left: 70%;margin-top:3%;background-color: white;color: #ef8024;font-weight: bolder;background-color: #051922;border-color: #ef8024;">Make
+                            Sale</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+<div class="sale_table">
+
+    <table class="table" id="dt_t">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">PID</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Sale Made At:</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in sales%}
+            <tr>
+                <td>{{i[0]}}</td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+            </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock%}
