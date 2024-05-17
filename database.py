@@ -50,3 +50,28 @@ def check_email_password(email,password):
     cur.execute(query,(email,password))
     data = cur.fetchall()
     return data
+
+def profit_per_product():
+    profit = 'select name,SUM((selling_price-buying_price)*quantity) as profit from products join sales on products.id=sales.pid group by name;'
+    cur.execute(profit)
+    data = cur.fetchall()
+    return data
+
+def profit_per_day():
+    profit = 'select DATE(created_at) as days, SUM((selling_price-buying_price)*quantity) as profit from sales join products on sales.pid = products.id group by days;'
+    cur.execute(profit)
+    data = cur.fetchall()
+    return data
+
+def sales_per_prod():
+    sales = 'select name,sum(selling_price * quantity) as sales from sales join products on sales.pid = products.id group by name;'
+    cur.execute(sales)
+    data = cur.fetchall()
+    return data
+
+def sales_per_day():
+    sales = 'select DATE(created_at) as day,sum(selling_price * buying_price) as sales from sales join products on sales.pid = products.id group by day;'
+    cur.execute(sales)
+    data = cur.fetchall()
+    return data
+                  

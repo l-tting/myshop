@@ -1,5 +1,164 @@
 {% extends "base.html" %}
 {% block title%}Dashboard{% endblock%}
 {% block content%}
+<div style="background-color: lightgrey;">
+<div class="wrapper d-flex align-items-stretch" style="margin-top: 6%;">
+    <nav id="sidebar" style="background-color: #051922;">
+        <div class="custom-menu" style="background-color: #051922;border-radius: 50px;">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <div class="p-4" style="background-color:#051922;">
+            <h1><a href="/" class="logo">MyShop <span>My Dashboard</span></a></h1>
+            <ul class="list-unstyled components mb-5">
+                <li class="active">
+                    <a href="/"><span class="fa fa-home mr-3"></span> Home</a>
+                </li>
+                <li>
+                    <a href="#"><span class="fa fa-user mr-3"></span> Profile</a>
+                </li>
+                <li>
+                    <a href="/products"><span class="fa fa-briefcase mr-3"></span> Products</a>
+                </li>
+                <li>
+                    <a href="/sales"><span class="fa fa-suitcase mr-3"></span> Sales</a>
+                </li>
+                <li>
+                    <a href="/contact"><span class="fa fa-cogs mr-3"></span> Support</a>
+                </li>
+                <li>
+                    <a href="/logout"><span class="fa fa-paper-plane mr-3"></span> Logout</a>
+                </li>
+            </ul>
+
+            <div class="mb-5">
+                <h3 class="h6 mb-3">Subscribe for newsletter</h3>
+                <form action="#" class="subscribe-form">
+                    <div class="form-group d-flex">
+                        <div class="icon"><span class="icon-paper-plane"></span></div>
+                        <input type="text" class="form-control" placeholder="Enter Email Address">
+                    </div>
+                </form>
+            </div>
+
+            <div class="footer">
+                <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is
+                    made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                        target="_blank">Colorlib.com</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </p>
+            </div>
+
+        </div>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+
+
+        <div class="row" style="margin-left: 30%;">
+            <div class="col-sm-3 ">
+                <div class="card">
+                    <div class="card-body" style="height:20px;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body" style="height:20px;">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="card">
+                    <div class="card-body" style="height:20px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 col-md-6"> 
+                <canvas id="bar-chart" width="800" height="600"></canvas>
+            </div>
+            <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">        
+                <canvas id="line-chart" width="800" height="600"></canvas>
+            </div>
+        </div>
+        
+
+
+    </div>
+
+</div>
+
+
+<div>
+    <div>
+
+    </div>
+
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script>
+    new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+            labels: {{ name | safe}},
+        datasets: [
+        {
+            label: "Profit(Ksh)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: {{ prof_prod | safe}}
+                }
+        , {
+            label: "Sales(Ksh.)",
+            backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850"],
+            data: {{ sales_prod | safe}}
+                }
+
+    ]
+        },
+        options: {
+        legend: { display: false },
+        title: {
+            display: true,
+            text: 'Predicted world population (millions) in 2050'
+        }
+    }
+    });
+
+    new Chart(document.getElementById("line-chart"), {
+        type: 'line',
+        data: {
+            labels: {{ day_prof | safe}},
+        datasets: [{
+            data: {{ prof_day | safe}},
+        label: "Profit",
+        borderColor: "#3e95cd",
+        fill: false
+            }, {
+            data: {{ sal_d | safe}},
+        label: "Sales",
+        borderColor: "#8e5ea2",
+        fill: false
+            }
+    ]
+        },
+        options: {
+        title: {
+            display: true,
+            text: 'World population per region (in millions)'
+        }
+    }
+    });
+</script>
 
 {% endblock%}

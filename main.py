@@ -1,5 +1,5 @@
 from flask  import  Flask,render_template,redirect,url_for,request,session,flash
-from database import get_data,insert_products,insert_sales,check_email_exists,insert_user,check_email_password,update_products
+from database import get_data,insert_products,insert_sales,check_email_exists,insert_user,check_email_password,update_products,profit_per_day,profit_per_product,sales_per_day,sales_per_prod
 
 app =  Flask(__name__)
 app.secret_key ='fjfkfifii4848v'
@@ -52,7 +52,33 @@ def register():
 def dashboard():
     if 'email' not in session:
         return redirect(url_for('login'))
-    return render_template('dashboard.html')
+    profit_product=profit_per_product()
+    profit_day = profit_per_day()
+    sales_product = sales_per_prod()
+    sales_day = sales_per_day()
+    name = []
+    prof_prod = []
+    sales_prod =[]
+    day_prof = []
+    prof_day=[]
+    sal_d = []
+   
+    for i in profit_product:
+        name.append(i[0])
+        prof_prod.append(i[1])
+    
+    for i in profit_day:
+        day_prof.append(str(i[0]))
+        prof_day.append(i[1])
+    print(day_prof)
+    for i in sales_product:
+        sales_prod.append(i[1])
+
+    for i in sales_day:
+        sal_d.append(i[1])
+
+    return render_template('dashboard.html',name=name, prof_prod=prof_prod, day_prof=day_prof, prof_day=prof_day, sales_prod=sales_prod, sal_d=sal_d)
+    
 
 @app.route('/login',methods = ['GET','POST'])
 def login():
