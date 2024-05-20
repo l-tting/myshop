@@ -8,6 +8,7 @@ conn = psycopg2.connect(
     host = 'localhost',
     port = 5432
 )
+
 # open a cursor to perform database operation
 
 cur = conn.cursor()
