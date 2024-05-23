@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block title%}Dashboard{% endblock%}
 {% block content%}
-<body>
+<body style="background-color:lightgray;">
     
 <div class="sale_modal" style="margin-top: 3%;">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color:burlywood;color: #ef8024;font-weight: bolder;border-color: white;">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color:burlywood;color: #ef8024;font-weight: bolder;border-color: white;margin-left: 10%;">
         Make Sale
     </button>
 
@@ -14,7 +14,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Make a Sale</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel" >Make a Sale</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -46,24 +46,24 @@
 
 </div>
 
-<div class="sale_table" style="background-color: #384B56;">
+<div class="sale_table" >
 
-    <table class="table" id="dt_t" style="background-color: #384B56;">
-        <thead style="background-color: #384B56;">
+    <table class="table" id="dt_t" border="1" style="width: 78%;border-color: #051922;background-color: #051922;">
+        <thead >
             <tr style="background-color: #384B56;">
-                <th scope="col">ID</th>
-                <th scope="col">PID</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Sale Made At:</th>
+                <th scope="col" style="color: #ef8024;text-align: center;background-color: #384B56;">ID</th>
+                <th scope="col" style="color: #ef8024;text-align: center;background-color: #384B56;">PID</th>
+                <th scope="col" style="color: #ef8024;text-align: center;background-color: #384B56;">Quantity</th>
+                <th scope="col" style="color: #ef8024;text-align: center;background-color: #384B56;">Sale Made At:</th>
             </tr>
         </thead>
         <tbody>
             {% for i in sales%}
             <tr>
-                <td>{{i[0]}}</td>
-                <td>{{i[1]}}</td>
-                <td>{{i[2]}}</td>
-                <td>{{i[3]}}</td>
+                <td style="text-align: center;font-weight: bolder;">{{i[0]}}</td>
+                <td style="text-align: center;font-weight: bolder;">{{i[1]}}</td>
+                <td style="text-align: center;font-weight: bolder;">{{i[2]}}</td>
+                <td style="text-align: center;font-weight: bolder;">{{i[3]}}</td>
             </tr>
 
             {% endfor %}

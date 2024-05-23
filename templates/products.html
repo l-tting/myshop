@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Products{% endblock %}
 {% block content %}
+<body style="background-color: lightgray;">
+  
 <div style="margin-top: 3%;" >
   
 
@@ -90,26 +92,26 @@
     style="background-color:burlywood;color: #ef8024;font-weight: bolder;border-color:white;margin-left: 4%;">Add Products</button>
 
   <div>
-    <table class="table" id="dt_t">
+    <table class="table" id="dt_t" style="width: 78%;margin-left: 10%;border-color: #051922;" border="1">
       <thead style="background-color: #051922;" >
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Product</th>
-          <th scope="col">Buying_Price(KSH.)</th>
-          <th scope="col">Selling_Price(KSH.)</th>
-          <th scope="col">Stock_Quantity</th>
+        <tr style="text-align: center;" >
+          <th scope="col" style="text-align: center;color: #ef8024;background-color: #384B56;">ID</th>
+          <th scope="col" style="text-align: center;color: #ef8024;background-color: #384B56;">Product</th>
+          <th scope="col" style="text-align: center;color: #ef8024;background-color: #384B56;">Buying_Price(KSH.)</th>
+          <th scope="col" style="text-align: center;color: #ef8024;background-color: #384B56;">Selling_Price(KSH.)</th>
+          <th scope="col" style="text-align: center;color: #ef8024;background-color: #384B56;">Stock_Quantity</th>
 
         </tr>
       </thead>
       <tbody>
         {%for i in products%}
-        <tr>
+        <tr >
 
-          <td>{{i[0]}}</td>
-          <td>{{i[1]}}</td>
-          <td>{{i[2]}}</td>
-          <td>{{i[3]}}</td>
-          <td>{{i[4]}}</td>
+          <td style="text-align: center;font-weight: bolder;">{{i[0]}}</td>
+          <td style="text-align: center;font-weight: bolder;">{{i[1]}}</td>
+          <td style="text-align: center;font-weight: bolder;">{{i[2]}}</td>
+          <td style="text-align: center;font-weight: bolder;">{{i[3]}}</td>
+          <td style="text-align: center;font-weight: bolder;">{{i[4]}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -118,4 +120,6 @@
 
 
 </div>
+</body>
+
 {% endblock %}

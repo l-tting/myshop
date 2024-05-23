@@ -131,15 +131,24 @@
 	</div>
 	<!-- end search area -->
 
-	{% with messages = get_flashed_messages() %}
-	{% if messages %}
-	<ul class=flashes>
-		{% for message in messages %}
-		<li>{{ message }}</li>
-		{% endfor %}
-	</ul>
-	{% endif %}
-	{% endwith %}
+	{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+
+    {% for category, message in messages %}
+		{% if category == 'success'%}
+			<div class="alert alert-success" role="alert" style="width: 500px;">
+				{{message}}
+			</div>
+		{% endif %}
+		{% if category == 'error' %}
+			<div class="alert alert-danger" role="alert">
+				{{message}}
+			</div>
+		{% endif %}
+    {% endfor %}
+
+    {% endif %}
+    {% endwith %}
 
 
 
@@ -282,8 +291,8 @@
 					<div class="footer-box subscribe">
 						<h2 class="widget-title">Subscribe</h2>
 						<p>Subscribe to our newsletter to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
+						<form action="/action" method="post">
+							<input type="email" placeholder="Email" name="email">
 							<button type="submit"><i class="fas fa-paper-plane"></i></button>
 						</form>
 					</div>
@@ -356,7 +365,7 @@
 		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-	<script>
+	<script >
 		let table = new DataTable('#dt_t');
 	</script>
 

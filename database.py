@@ -64,6 +64,12 @@ def profit_per_day():
     data = cur.fetchall()
     return data
 
+def profit_only():
+    profit = 'select DATE(created_at) as days, SUM((selling_price-buying_price)*quantity) as profit from sales join products on sales.pid = products.id group by days order by days desc limit 1;'
+    cur.execute(profit)
+    data = cur.fetchall()
+    return data
+
 def sales_per_prod():
     sales = 'select name,sum(selling_price * quantity) as sales from sales join products on sales.pid = products.id group by name;'
     cur.execute(sales)
@@ -71,8 +77,16 @@ def sales_per_prod():
     return data
 
 def sales_per_day():
-    sales = 'select DATE(created_at) as day,sum(selling_price * buying_price) as sales from sales join products on sales.pid = products.id group by day;'
+    sales = 'select DATE(created_at) as day,sum(selling_price * stock_quantity) as sales from sales join products on sales.pid = products.id group by day;'
     cur.execute(sales)
     data = cur.fetchall()
     return data
+
+def sales_only():
+    sales = 'select Date(created_at) as days,sum(selling_price * stock_quantity) as sales from sales join products on sales.pid = products.id group by days order by sales desc limit 1;'
+    cur.execute(sales)
+    data = cur.fetchall()
+    return data
+x = sales_only()
+print(x)
                   
