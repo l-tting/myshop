@@ -1,5 +1,5 @@
 from flask  import  Flask,render_template,redirect,url_for,request,session,flash
-from database import get_data,insert_products,insert_sales,check_email_exists,insert_user,check_email_password,update_products,profit_per_day,profit_per_product,sales_per_day,sales_per_prod,profit_only,sales_only,check_quantity,update_quantity
+from database import get_data,insert_products,insert_sales,check_email_exists,insert_user,check_email_password,update_products,profit_per_day,profit_per_product,sales_per_day,sales_per_prod,profit_only,sales_only,check_quantity,update_quantity,check_product
 from flask_mail import Mail,Message
 
 #app instance
@@ -168,8 +168,14 @@ def add_prods():
     b_price = request.form['buying']
     s_price = request.form['selling']
     stock = request.form['stock']
-    new = (p_name,b_price,s_price,stock)
-    insert_products(new)
+    c_p = check_product(p_name)
+    if len(c_p) < 1:
+        new = (p_name,b_price,s_price,stock)
+        insert_products(new)
+        flash('Products added successfully')
+    else:
+        exist = (b_price,s_price,stock)
+        update_products(exist,p_name)
     return redirect(url_for('products'))
 
 

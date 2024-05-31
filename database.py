@@ -101,3 +101,11 @@ def update_quantity(quantity,pid):
     query = 'update products set stock_quantity = %s where id = %s'
     cur.execute(query,(quantity,pid))
     conn.commit()
+
+def check_product(name):
+    query = 'select name from products where name = %s'
+    cur.execute(query,(name,))
+    data = cur.fetchall()
+    return data
+
+
