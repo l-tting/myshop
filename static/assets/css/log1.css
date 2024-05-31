@@ -197,7 +197,7 @@
   .login100-form-title {
     width: 100%;
     position: relative;
-    z-index: 1;
+    z-index: 30;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;

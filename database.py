@@ -90,3 +90,14 @@ def sales_only():
 x = sales_only()
 print(x)
                   
+
+def check_quantity(pid):
+    query='select stock_quantity from products where id = %s'
+    cur.execute(query,(pid,))
+    data = cur.fetchall()
+    return data[0][0]
+
+def update_quantity(quantity,pid):
+    query = 'update products set stock_quantity = %s where id = %s'
+    cur.execute(query,(quantity,pid))
+    conn.commit()

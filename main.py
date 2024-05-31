@@ -1,7 +1,6 @@
 from flask  import  Flask,render_template,redirect,url_for,request,session,flash
-from database import get_data,insert_products,insert_sales,check_email_exists,insert_user,check_email_password,update_products,profit_per_day,profit_per_product,sales_per_day,sales_per_prod,profit_only,sales_only
+from database import get_data,insert_products,insert_sales,check_email_exists,insert_user,check_email_password,update_products,profit_per_day,profit_per_product,sales_per_day,sales_per_prod,profit_only,sales_only,check_quantity,update_quantity
 from flask_mail import Mail,Message
-
 
 #app instance
 app =  Flask(__name__)
@@ -34,8 +33,6 @@ def products():
     return render_template('products.html',products=products)
 
 
-
-
 @app.route('/sales')
 def sales():
     if 'email' not in session:
@@ -43,6 +40,7 @@ def sales():
     sales = get_data('sales')
     products = get_data('products')
     return render_template('sales.html',sales = sales,products=products)
+
 
 @app.route('/register',methods=['GET','POST'])
 def register():
@@ -123,10 +121,10 @@ def dashboard():
 
     for i in sale_only:
         sale_on.append(i)
-
     for i in prof_only:
         prf_on.append(i)
     return render_template('dashboard.html',name=name, prof_prod=prof_prod, day_prof=day_prof, prof_day=prof_day, sales_prod=sales_prod, sal_d=sal_d,sale_on=sale_on,prf_on=prf_on)
+
 
 @app.route('/subscribe',methods = ['GET','POST'])  
 def subscribe():
@@ -140,6 +138,7 @@ def subscribe():
         except Exception as e:
             flash(f'Failed to send email. Error: {str(e)}','error')
         return redirect(url_for('contact'))
+
 
 @app.route('/login',methods = ['GET','POST'])
 def login():
@@ -159,9 +158,9 @@ def login():
             else:
                 #STORE EMAIL IN A SESSION
                 session['email']= email
-                return redirect(url_for('dashboard'))
-        
+                return redirect(url_for('dashboard'))     
     return render_template('login.html')
+
 
 @app.route('/add_prods', methods=['GET','POST'] )
 def add_prods():
@@ -173,9 +172,9 @@ def add_prods():
     insert_products(new)
     return redirect(url_for('products'))
 
+
 @app.route('/update_prods',methods=['GET','POST'])
 def update_prods():
-
     pid = request.form['select']
     buying = request.form['buying']
     selling = request.form['selling']
@@ -184,21 +183,32 @@ def update_prods():
     update_products(new,pid)
     return redirect(url_for('products'))
 
+
 @app.route('/make_sale',methods=['GET','POST'])
 def make_sale():
     pid = request.form['select']
     quantity = request.form['quantity']
-    new = (pid,quantity)
-    insert_sales(new)
-    flash('Sale made successfully')
+    
+    quantity = float(quantity)
+    c_q=check_quantity(pid)
+    c_q = float(c_q)
+    print(c_q)
+    if c_q>=quantity:
+        new = (pid,quantity)
+        insert_sales(new)
+        flash('Sale Made Successfully','success')
+        c_q-=quantity
+        update_quantity(c_q,pid)
+    else:
+       flash('Insufficient Quantity','error')
+
     return redirect(url_for('sales'))
+
 
 @app.route('/logout')
 def log_out():
     session.pop('email',None)
     return redirect(url_for('login'))
-
-
 
 
 app.run(debug=True)
