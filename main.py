@@ -39,6 +39,7 @@ def sales():
         return redirect(url_for('login'))
     sales = get_data('sales')
     products = get_data('products')
+    print(products)
     return render_template('sales.html',sales = sales,products=products)
 
 

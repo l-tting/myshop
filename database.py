@@ -108,4 +108,7 @@ def check_product(name):
     data = cur.fetchall()
     return data
 
+x = get_data('products')
+print(x)
+
 
