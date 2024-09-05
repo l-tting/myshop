@@ -39,7 +39,7 @@ def sales():
         return redirect(url_for('login'))
     sales = get_data('sales')
     products = get_data('products')
-    print(products)
+
     return render_template('sales.html',sales = sales,products=products)
 
 
@@ -195,11 +195,10 @@ def update_prods():
 def make_sale():
     pid = request.form['select']
     quantity = request.form['quantity']
-    
     quantity = float(quantity)
     c_q=check_quantity(pid)
     c_q = float(c_q)
-    print(c_q)
+
     if c_q>=quantity:
         new = (pid,quantity)
         insert_sales(new)
